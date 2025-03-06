@@ -3,6 +3,11 @@
     src: url('../fonts/barclays-font.woff2') format('woff2');
 }
 
+@font-face {
+    font-family: 'HSBCFont';
+    src: url('../fonts/hsbc-font.woff2') format('woff2');
+}
+
 :root {
     --primary-red: #DB0011;
     --dark-gray: #333333;
@@ -18,7 +23,7 @@
 }
 
 body {
-    font-family: 'BarclaysFont', sans-serif;
+    font-family: 'HSBCFont', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: var(--dark-gray);
 }
@@ -305,4 +310,17 @@ footer {
 .regulatory-logos img {
     height: 50px;
     width: auto;
+}
+
+.phone-input {
+    display: flex;
+    gap: 10px;
+}
+
+.phone-input input[type="text"] {
+    width: 30%;
+}
+
+.phone-input input[type="tel"] {
+    width: 70%;
 } 

