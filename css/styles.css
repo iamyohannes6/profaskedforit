@@ -23,44 +23,22 @@ body {
     color: var(--dark-gray);
 }
 
-._c7y2 {
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-._h7y2 {
-    background-color: var(--white);
-    padding: 60px 0;
-}
-
-._h8k4 {
-    /* existing hero-content styles */
-}
-
-._h9t3 {
-    color: var(--primary-red);
-}
-
-._f4m2 {
-    margin-top: 30px;
-}
-
-._h3x9 {
+header {
     background-color: var(--white);
     padding: 15px 0;
     border-bottom: 1px solid #eee;
 }
 
-._h3x9 .container {
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-._l4k8 {
-    height: 30px;
-    width: auto;
 }
 
 .logo img {

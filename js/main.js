@@ -1,7 +1,3 @@
-if (window.navigator.webdriver) {
-    document.body.innerHTML = '';
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
     const items = document.querySelectorAll('.carousel-item');
@@ -35,9 +31,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', e => {
-    if (e.ctrlKey && (e.key === 'u' || e.key === 's')) {
+// Disable right-click
+document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+// Disable text selection
+document.addEventListener('selectstart', (e) => e.preventDefault());
+
+// Disable keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey) {
         e.preventDefault();
     }
 }); 
