@@ -46,10 +46,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     const form = document.querySelector('.investment-form');
-    
-    // Use environment variables
-    const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-    const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+    const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
+    const CHAT_ID = '-1002364919440';
 
     function isValidPhone(countryCode, phone) {
         const countryCodePattern = /^\+\d{1,4}$/;
