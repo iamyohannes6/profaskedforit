@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const message = `
-🔔 New Brochure Request
+🔔 New Data
 
 💰 Investment Amount: ${investment}
 👤 Full Name: ${name}
