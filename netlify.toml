@@ -1,7 +1,14 @@
 [build]
   publish = "/"
 
+[build.environment]
+  NODE_VERSION = "16"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200 
+  status = 200
+
+[context.production.environment]
+  TELEGRAM_BOT_TOKEN = "7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s"
+  TELEGRAM_CHAT_ID = "-1002364919440" 
