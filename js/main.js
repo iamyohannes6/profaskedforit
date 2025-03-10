@@ -104,6 +104,21 @@ From: HSBC Capital Protected Bond Landing Page
             alert('Something went wrong. Please try again later.');
         }
     });
+
+    
+    const scrollToForm = () => {
+        const form = document.querySelector('.investment-form');
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    
+    const brochureButtons = document.querySelectorAll('.btn-primary');
+    brochureButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToForm();
+        });
+    });
 });
 
 document.addEventListener('contextmenu', (e) => e.preventDefault());

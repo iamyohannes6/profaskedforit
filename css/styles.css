@@ -61,9 +61,9 @@ header .container {
 }
 
 .btn-primary {
-    background: var(--primary-red);
+    background: #b1000e;
     color: var(--white);
-    border: none;
+    border: white;
     font-weight: 500;
 }
 
